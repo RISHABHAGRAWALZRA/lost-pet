@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import { Searchbar } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
@@ -8,11 +8,18 @@ import { DataContext } from "../context/DataContext";
 import CustomCardRow from "../components/CustomCardRow";
 
 const PetsList = () => {
-  const {petsList, search, sortBy, setSearch, setSortBy} = useContext(DataContext);
+  const {petsList, search, setSearch, organize} = useContext(DataContext);
+  const [sortBy,setSortBy] = useState(null);
 
+  //Updating Search varible
   const onChangeSearch = (query) => {
     setSearch(query);
   }
+
+  //use to update the ordering 
+  useEffect(()=>{
+    organize(sortBy);
+  },[sortBy])
 
   
   return (
@@ -23,8 +30,8 @@ const PetsList = () => {
           onValueChange={(itemValue, itemIndex) =>
             setSortBy(itemValue)
           }>
-          <Picker.Item label="By Name" value="age" />
           <Picker.Item label="By Age" value="name" />
+          <Picker.Item label="By Name" value="age" />
         </Picker>
         <View style={styles.space} />
         <Searchbar

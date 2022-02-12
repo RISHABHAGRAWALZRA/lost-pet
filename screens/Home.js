@@ -12,8 +12,8 @@ import { DataContext  } from "../context/DataContext";
 const Home = () => {
   const {loading} = useContext(DataContext);
 
+  //Logic for showing Loading Sign
   if (loading) {
-    console.log("Start Displaying");
     return (
       <View>
         <StatusBar barStyle="dark-content" backgroundColor="#fff" />
